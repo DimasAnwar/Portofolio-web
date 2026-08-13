@@ -3,8 +3,46 @@ import { FolderGit2, ExternalLink, Smartphone, Sparkles, X, ArrowRight, Eye, Cod
 
 export default function Portfolio() {
   const [selectedProject, setSelectedProject] = useState(null);
+  const [activeImage, setActiveImage] = useState(null);
 
   const projects = [
+    {
+      id: 'eduschool',
+      isFeatured: true,
+      title: 'EduSchool — School Management Application',
+      category: 'Mobile Development',
+      badge: 'Featured Repository',
+      icon: <Smartphone size={20} />,
+      image: '/images/screenshoots/Screenshot_1786622567.png',
+      gallery: [
+        '/images/screenshoots/Screenshot_1786622567.png',
+        '/images/screenshoots/Screenshot_1786622610.png',
+        '/images/screenshoots/Screenshot_1786622549.png',
+        '/images/screenshoots/Screenshot_1786622572.png',
+        '/images/screenshoots/Screenshot_1786622574.png',
+        '/images/screenshoots/Screenshot_1786622576.png',
+        '/images/screenshoots/Screenshot_1786622588.png',
+        '/images/screenshoots/Screenshot_1786622604.png',
+        '/images/screenshoots/Screenshot_1786622622.png',
+        '/images/screenshoots/Screenshot_1786622923.png',
+        '/images/screenshoots/Screenshot_1786622928.png',
+        '/images/screenshoots/Screenshot_1786622930.png',
+      ],
+      shortDesc:
+        'Aplikasi mobile manajemen sekolah interaktif berbasis Flutter & Dart untuk pengelolaan jadwal pelajaran, tugas, rekapitulasi nilai, dan portal akademik siswa.',
+      fullDesc:
+        'EduSchool adalah aplikasi mobile manajemen persekolahan modern berbasis Flutter & Dart yang dirancang untuk mempermudah siswa dan pengajar dalam memantau kegiatan akademik harian. Aplikasi ini mengintegrasikan pelacakan tugas (assignment tracker), penanganan jadwal harian interaktif, monitoring progres nilai, serta antarmuka responsif dengan performa tinggi.',
+      features: [
+        'Interactive Class Schedule & Timetable Management',
+        'Assignment & Task Tracker with Reminders',
+        'Student Grade & Academic Performance Progress',
+        'Modular Clean Architecture with Flutter & Dart',
+        '60 FPS Smooth Navigation & Modern Dark Theme',
+      ],
+      tech: ['Flutter', 'Dart', 'State Management', 'REST API'],
+      demoLink: 'https://github.com/DimasAnwar/futter-school-app',
+      githubLink: 'https://github.com/DimasAnwar/futter-school-app',
+    },
     {
       id: 'restaurant-app',
       isFeatured: true,
@@ -30,6 +68,11 @@ export default function Portfolio() {
     },
   ];
 
+  const handleOpenModal = (project) => {
+    setSelectedProject(project);
+    setActiveImage(project.image);
+  };
+
   return (
     <section id="portfolio" className="section">
       <div className="container">
@@ -47,14 +90,8 @@ export default function Portfolio() {
           </p>
         </div>
 
-        {/* Projects Container (Constrained Standard Card Width) */}
-        <div
-          style={{
-            maxWidth: '680px',
-            margin: '0 auto',
-            width: '100%',
-          }}
-        >
+        {/* Projects Container (Responsive Grid Layout) */}
+        <div className="portfolio-grid">
           {projects.map((project) => (
             <div
               key={project.id}
@@ -67,18 +104,27 @@ export default function Portfolio() {
                 boxShadow: '0 20px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(69, 209, 253, 0.15)',
               }}
             >
-              {/* Card Thumbnail Image Container - Clear High-Res Display */}
+              {/* Card Thumbnail Image Container - Phone Device Mockup Presentation */}
               <div
                 className="project-image-wrapper"
-                onClick={() => setSelectedProject(project)}
+                onClick={() => handleOpenModal(project)}
                 style={{ cursor: 'pointer' }}
               >
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="project-image"
-                  loading="lazy"
-                />
+                {project.gallery && project.gallery.length > 1 ? (
+                  <div className="project-multi-mockup">
+                    <div className="project-image-frame frame-secondary">
+                      <img src={project.gallery[1]} alt={`${project.title} Preview 2`} />
+                    </div>
+                    <div className="project-image-frame frame-primary">
+                      <img src={project.gallery[0]} alt={project.title} />
+                    </div>
+                  </div>
+                ) : (
+                  <div className="project-image-frame frame-primary">
+                    <img src={project.image} alt={project.title} />
+                  </div>
+                )}
+
                 <div className="project-image-overlay">
                   <span className="btn btn-primary" style={{ padding: '12px 24px', fontSize: '0.9rem', gap: '8px' }}>
                     <Eye size={18} />
@@ -89,7 +135,7 @@ export default function Portfolio() {
               </div>
 
               {/* Card Body */}
-              <div style={{ padding: ' clamp(20px, 4vw, 32px)', flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+              <div style={{ padding: 'clamp(20px, 4vw, 32px)', flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--accent-blue)', fontSize: '0.825rem', fontWeight: 700, textTransform: 'uppercase', marginBottom: '10px' }}>
                   {project.icon}
                   <span>{project.category}</span>
@@ -124,11 +170,10 @@ export default function Portfolio() {
                 </div>
 
                 {/* Card Action Links */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
+                <div className="project-card-actions">
                   <button
-                    onClick={() => setSelectedProject(project)}
+                    onClick={() => handleOpenModal(project)}
                     className="btn btn-primary"
-                    style={{ flex: 1, minWidth: '180px' }}
                   >
                     <span>Detail &amp; Screenshot</span>
                     <ArrowRight size={16} />
@@ -138,7 +183,6 @@ export default function Portfolio() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn btn-secondary"
-                    style={{ flex: 1, minWidth: '180px', textDecoration: 'none' }}
                   >
                     <Code size={16} />
                     <span>GitHub Repository</span>
@@ -199,7 +243,7 @@ export default function Portfolio() {
               </button>
             </div>
 
-            {/* Modal Full Crisp Image Display */}
+            {/* Modal Full Crisp Image Display & Gallery */}
             <div
               style={{
                 borderRadius: 'var(--radius-md)',
@@ -211,7 +255,7 @@ export default function Portfolio() {
               }}
             >
               <img
-                src={selectedProject.image}
+                src={activeImage || selectedProject.image}
                 alt={selectedProject.title}
                 style={{
                   width: '100%',
@@ -222,6 +266,51 @@ export default function Portfolio() {
                   padding: '12px',
                 }}
               />
+
+              {/* Interactive Screenshot Gallery Selector */}
+              {selectedProject.gallery && selectedProject.gallery.length > 0 && (
+                <div style={{ padding: '8px 12px 14px', borderTop: '1px solid rgba(255,255,255,0.08)', background: 'rgba(11, 15, 25, 0.6)' }}>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--accent-blue)', fontWeight: 700, marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    Galeri Screenshot App ({selectedProject.gallery.length} Tampilan)
+                  </div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      gap: '10px',
+                      overflowX: 'auto',
+                      paddingBottom: '6px',
+                      scrollbarWidth: 'thin',
+                    }}
+                  >
+                    {selectedProject.gallery.map((imgUrl, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setActiveImage(imgUrl)}
+                        style={{
+                          border: activeImage === imgUrl ? '2px solid var(--accent-blue)' : '1px solid rgba(255,255,255,0.15)',
+                          borderRadius: '8px',
+                          overflow: 'hidden',
+                          padding: 0,
+                          cursor: 'pointer',
+                          background: '#070B14',
+                          width: '60px',
+                          height: '100px',
+                          flexShrink: 0,
+                          transition: 'all 0.2s ease',
+                          opacity: activeImage === imgUrl ? 1 : 0.55,
+                          boxShadow: activeImage === imgUrl ? '0 0 12px rgba(69, 209, 253, 0.4)' : 'none',
+                        }}
+                      >
+                        <img
+                          src={imgUrl}
+                          alt={`Screenshot ${idx + 1}`}
+                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Modal Full Description */}
@@ -284,13 +373,13 @@ export default function Portfolio() {
             </div>
 
             {/* Modal Actions */}
-            <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+            <div className="modal-actions-grid">
               <a
                 href={selectedProject.demoLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-primary"
-                style={{ flex: 1, minWidth: '200px', textDecoration: 'none' }}
+                style={{ textDecoration: 'none' }}
               >
                 <ExternalLink size={18} />
                 <span>Buka Repository / Demo</span>
@@ -300,7 +389,7 @@ export default function Portfolio() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-secondary"
-                style={{ flex: 1, minWidth: '200px', textDecoration: 'none' }}
+                style={{ textDecoration: 'none' }}
               >
                 <Code size={18} />
                 <span>GitHub Source Code</span>
@@ -312,6 +401,39 @@ export default function Portfolio() {
 
       {/* Styled Portfolio CSS */}
       <style>{`
+        .portfolio-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+          gap: 32px;
+          max-width: 1100px;
+          margin: 0 auto;
+          width: 100%;
+        }
+
+        .project-card-actions {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          flex-wrap: wrap;
+          margin-top: auto;
+        }
+
+        .project-card-actions .btn {
+          flex: 1;
+          min-width: 150px;
+        }
+
+        .modal-actions-grid {
+          display: flex;
+          gap: 16px;
+          flex-wrap: wrap;
+        }
+
+        .modal-actions-grid .btn {
+          flex: 1;
+          min-width: 180px;
+        }
+
         .project-card {
           transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -324,27 +446,70 @@ export default function Portfolio() {
         .project-image-wrapper {
           position: relative;
           width: 100%;
-          height: clamp(280px, 35vw, 360px);
+          height: clamp(320px, 38vw, 390px);
           overflow: hidden;
           border-top-left-radius: var(--radius-lg);
           border-top-right-radius: var(--radius-lg);
-          background: radial-gradient(circle at center, #111827 0%, #070B14 100%);
+          background: radial-gradient(circle at 50% 40%, rgba(69, 209, 253, 0.16) 0%, rgba(11, 15, 25, 0.98) 75%);
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 8px;
+          padding: 20px 16px 12px;
         }
 
-        .project-image {
+        .project-multi-mockup {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .project-image-frame {
+          position: relative;
+          height: 96%;
+          aspect-ratio: 9 / 19.5;
+          border-radius: 20px;
+          overflow: hidden;
+          border: 2.5px solid rgba(69, 209, 253, 0.4);
+          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75), 0 0 25px rgba(69, 209, 253, 0.2);
+          background: #090D16;
+          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .project-image-frame img {
           width: 100%;
           height: 100%;
           object-fit: cover;
           object-position: center top;
-          transition: transform 0.5s ease;
+          display: block;
         }
 
-        .project-card:hover .project-image {
-          transform: scale(1.04);
+        .frame-primary {
+          z-index: 2;
+          transform: translateY(0) scale(1);
+        }
+
+        .frame-secondary {
+          position: absolute;
+          z-index: 1;
+          transform: translateX(42px) translateY(10px) rotate(6deg) scale(0.88);
+          opacity: 0.72;
+          border-color: rgba(255, 255, 255, 0.18);
+          filter: brightness(0.85);
+        }
+
+        .project-card:hover .frame-primary {
+          transform: translateY(-6px) scale(1.03);
+          border-color: rgba(69, 209, 253, 0.75);
+          box-shadow: 0 24px 50px rgba(0, 0, 0, 0.85), 0 0 35px rgba(69, 209, 253, 0.4);
+        }
+
+        .project-card:hover .frame-secondary {
+          transform: translateX(62px) translateY(6px) rotate(10deg) scale(0.92);
+          opacity: 0.92;
+          filter: brightness(1);
         }
 
         .project-image-overlay {
@@ -361,6 +526,7 @@ export default function Portfolio() {
           justify-content: center;
           opacity: 0;
           transition: opacity 0.3s ease;
+          z-index: 5;
         }
 
         .project-card:hover .project-image-overlay {
@@ -380,11 +546,48 @@ export default function Portfolio() {
           font-weight: 700;
           backdrop-filter: blur(10px);
           box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+          z-index: 6;
+        }
+
+        @media (max-width: 768px) {
+          .portfolio-grid {
+            grid-template-columns: 1fr;
+            gap: 24px;
+          }
+          .project-card-actions {
+            flex-direction: column;
+            gap: 12px;
+          }
+          .project-card-actions .btn {
+            width: 100%;
+            min-width: unset;
+          }
+          .modal-actions-grid {
+            flex-direction: column;
+            gap: 12px;
+          }
+          .modal-actions-grid .btn {
+            width: 100%;
+            min-width: unset;
+          }
         }
 
         @media (max-width: 600px) {
           .project-image-wrapper {
-            height: 240px;
+            height: clamp(250px, 55vw, 300px);
+            padding: 14px 10px 8px;
+          }
+          .frame-secondary {
+            transform: translateX(24px) translateY(8px) rotate(5deg) scale(0.85);
+          }
+          .project-card:hover .frame-secondary {
+            transform: translateX(36px) translateY(4px) rotate(8deg) scale(0.88);
+          }
+          .project-category-badge {
+            top: 12px;
+            right: 12px;
+            font-size: 0.7rem;
+            padding: 4px 10px;
           }
         }
       `}</style>

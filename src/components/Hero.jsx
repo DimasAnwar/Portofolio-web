@@ -17,7 +17,7 @@ export default function Hero({ onOpenCV }) {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
             gap: '48px',
             alignItems: 'center',
           }}
@@ -35,7 +35,7 @@ export default function Hero({ onOpenCV }) {
             {/* Headline H1 */}
             <h1
               style={{
-                fontSize: 'clamp(2.5rem, 5vw, 3.75rem)',
+                fontSize: 'clamp(2.25rem, 5vw, 3.75rem)',
                 fontWeight: 800,
                 lineHeight: 1.15,
                 letterSpacing: '-0.03em',
@@ -49,7 +49,7 @@ export default function Hero({ onOpenCV }) {
             {/* Sub-headline */}
             <p
               style={{
-                fontSize: 'clamp(1.05rem, 1.8vw, 1.2rem)',
+                fontSize: 'clamp(1rem, 1.8vw, 1.2rem)',
                 color: 'var(--text-secondary)',
                 lineHeight: 1.7,
                 marginBottom: '36px',
@@ -165,7 +165,7 @@ export default function Hero({ onOpenCV }) {
               }}
             />
 
-            {/* Main Profile Card Container (Stack with Clip.none behavior) */}
+            {/* Main Profile Card Container */}
             <div
               className="floating-element"
               style={{
@@ -186,7 +186,7 @@ export default function Hero({ onOpenCV }) {
                 style={{
                   position: 'relative',
                   width: '100%',
-                  height: '460px',
+                  height: 'clamp(340px, 65vw, 460px)',
                   borderRadius: 'var(--radius-md)',
                   overflow: 'hidden',
                   border: '1px solid rgba(255, 255, 255, 0.1)',
@@ -267,204 +267,182 @@ export default function Hero({ onOpenCV }) {
                 </div>
               </div>
 
-              {/* Floating Tech Badge 1 (Top Left - Floating Outward Stack) */}
-              <div
-                className="floating-badge-left"
-                style={{
-                  position: 'absolute',
-                  top: '18px',
-                  left: '-52px',
-                  zIndex: 25,
-                  background: 'rgba(11, 15, 25, 0.94)',
-                  backdropFilter: 'blur(20px)',
-                  WebkitBackdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(69, 209, 253, 0.6)',
-                  padding: '12px 18px',
-                  borderRadius: 'var(--radius-md)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px',
-                  boxShadow: '0 20px 45px rgba(0,0,0,0.7), 0 0 30px rgba(69, 209, 253, 0.4)',
-                }}
-              >
-                <div
-                  style={{
-                    width: '38px',
-                    height: '38px',
-                    borderRadius: '10px',
-                    background: 'rgba(69, 209, 253, 0.25)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'var(--accent-blue)',
-                    boxShadow: '0 0 15px rgba(69, 209, 253, 0.4)',
-                  }}
-                >
-                  <Smartphone size={20} />
-                </div>
-                <div>
-                  <div style={{ fontSize: '0.875rem', fontWeight: 800, color: 'var(--text-primary)', whiteSpace: 'nowrap' }}>
-                    Flutter Specialist
+              {/* Floating Tech Badges Container */}
+              <div className="hero-badges-wrapper">
+                {/* Floating Tech Badge 1 (Top Left) */}
+                <div className="hero-badge-floating hero-badge-1">
+                  <div
+                    style={{
+                      width: '32px',
+                      height: '32px',
+                      borderRadius: '10px',
+                      background: 'rgba(69, 209, 253, 0.25)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'var(--accent-blue)',
+                      boxShadow: '0 0 15px rgba(69, 209, 253, 0.4)',
+                      flexShrink: 0,
+                    }}
+                  >
+                    <Smartphone size={16} />
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--accent-blue)', fontWeight: 600, whiteSpace: 'nowrap' }}>
-                    Dart &amp; Clean Architecture
+                  <div>
+                    <div style={{ fontSize: '0.8rem', fontWeight: 800, color: 'var(--text-primary)', whiteSpace: 'nowrap' }}>
+                      Flutter Specialist
+                    </div>
+                    <div style={{ fontSize: '0.7rem', color: 'var(--accent-blue)', fontWeight: 600, whiteSpace: 'nowrap' }}>
+                      Dart &amp; Clean Arch
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Floating Tech Badge 2 (Top Right - System Architecture) */}
-              <div
-                className="floating-badge-top"
-                style={{
-                  position: 'absolute',
-                  top: '-24px',
-                  right: '-36px',
-                  zIndex: 25,
-                  background: 'rgba(11, 15, 25, 0.94)',
-                  backdropFilter: 'blur(20px)',
-                  WebkitBackdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(56, 189, 248, 0.6)',
-                  padding: '10px 16px',
-                  borderRadius: 'var(--radius-full)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  boxShadow: '0 15px 35px rgba(0,0,0,0.6), 0 0 25px rgba(56, 189, 248, 0.4)',
-                }}
-              >
-                <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#38BDF8', boxShadow: '0 0 10px #38BDF8' }} />
-                <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#38BDF8', whiteSpace: 'nowrap' }}>
-                  Luau &amp; JavaScript, TypeScript,Dart
-                </span>
-              </div>
-
-              {/* Floating Tech Badge 3 (Bottom Right - UI/UX & 3D Design - Floating Outward Stack) */}
-              <div
-                className="floating-badge-right"
-                style={{
-                  position: 'absolute',
-                  bottom: '10px',
-                  right: '-200px',
-                  zIndex: 25,
-                  background: 'rgba(11, 15, 25, 0.94)',
-                  backdropFilter: 'blur(20px)',
-                  WebkitBackdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(129, 140, 248, 0.6)',
-                  padding: '12px 18px',
-                  borderRadius: 'var(--radius-md)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px',
-                  boxShadow: '0 20px 45px rgba(0,0,0,0.7), 0 0 30px rgba(129, 140, 248, 0.4)',
-                }}
-              >
-                <div
-                  style={{
-                    width: '38px',
-                    height: '38px',
-                    borderRadius: '10px',
-                    background: 'rgba(129, 140, 248, 0.25)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: '#818CF8',
-                    boxShadow: '0 0 15px rgba(129, 140, 248, 0.4)',
-                  }}
-                >
-                  <Box size={20} />
+                {/* Floating Tech Badge 2 (Top Right) */}
+                <div className="hero-badge-floating hero-badge-2">
+                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#38BDF8', boxShadow: '0 0 10px #38BDF8', flexShrink: 0 }} />
+                  <span style={{ fontSize: '0.775rem', fontWeight: 700, color: '#38BDF8', whiteSpace: 'nowrap' }}>
+                    JS • TS • Dart • Luau
+                  </span>
                 </div>
-                <div>
-                  <div style={{ fontSize: '0.875rem', fontWeight: 800, color: 'var(--text-primary)', whiteSpace: 'nowrap' }}>
-                    UI/UX &amp; 3D Design
+
+                {/* Floating Tech Badge 3 (Bottom Right) */}
+                <div className="hero-badge-floating hero-badge-3">
+                  <div
+                    style={{
+                      width: '32px',
+                      height: '32px',
+                      borderRadius: '10px',
+                      background: 'rgba(129, 140, 248, 0.25)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#818CF8',
+                      boxShadow: '0 0 15px rgba(129, 140, 248, 0.4)',
+                      flexShrink: 0,
+                    }}
+                  >
+                    <Box size={16} />
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: '#818CF8', fontWeight: 600, whiteSpace: 'nowrap' }}>
-                    Blender &amp; Spatial Aesthetics
+                  <div>
+                    <div style={{ fontSize: '0.8rem', fontWeight: 800, color: 'var(--text-primary)', whiteSpace: 'nowrap' }}>
+                      UI/UX &amp; 3D Design
+                    </div>
+                    <div style={{ fontSize: '0.7rem', color: '#818CF8', fontWeight: 600, whiteSpace: 'nowrap' }}>
+                      Blender &amp; Spatial
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Floating Tech Badge 4 (Bottom Left - IT Network Badge) */}
-              <div
-                className="floating-badge-left"
-                style={{
-                  position: 'absolute',
-                  bottom: '-22px',
-                  left: '-32px',
-                  zIndex: 25,
-                  background: 'rgba(11, 15, 25, 0.94)',
-                  backdropFilter: 'blur(20px)',
-                  WebkitBackdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(45, 212, 191, 0.6)',
-                  padding: '10px 16px',
-                  borderRadius: 'var(--radius-full)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  boxShadow: '0 15px 35px rgba(0,0,0,0.6), 0 0 25px rgba(45, 212, 191, 0.4)',
-                }}
-              >
-                <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#2DD4BF', boxShadow: '0 0 10px #2DD4BF' }} />
-                <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#2DD4BF', whiteSpace: 'nowrap' }}>
-                  MikroTik &amp; UniFi IT
-                </span>
+                {/* Floating Tech Badge 4 (Bottom Left) */}
+                <div className="hero-badge-floating hero-badge-4">
+                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#2DD4BF', boxShadow: '0 0 10px #2DD4BF', flexShrink: 0 }} />
+                  <span style={{ fontSize: '0.775rem', fontWeight: 700, color: '#2DD4BF', whiteSpace: 'nowrap' }}>
+                    MikroTik &amp; UniFi IT
+                  </span>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Embedded Badge Keyframe Animations */}
+      {/* Responsive Floating Badge Styles */}
       <style>{`
-        .floating-badge-left {
+        .hero-badges-wrapper {
+          display: contents;
+        }
+
+        .hero-badge-floating {
+          position: absolute;
+          z-index: 25;
+          background: rgba(11, 15, 25, 0.92);
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
+          padding: 10px 14px;
+          border-radius: var(--radius-md);
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          transition: all 0.3s ease;
+        }
+
+        .hero-badge-1 {
+          top: 24px;
+          left: -32px;
+          border: 1px solid rgba(69, 209, 253, 0.6);
+          box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 25px rgba(69, 209, 253, 0.3);
           animation: floatBadgeLeft 4.5s ease-in-out infinite alternate;
         }
 
-        .floating-badge-right {
+        .hero-badge-2 {
+          top: -18px;
+          right: -16px;
+          border: 1px solid rgba(56, 189, 248, 0.6);
+          border-radius: var(--radius-full);
+          box-shadow: 0 12px 30px rgba(0,0,0,0.5), 0 0 20px rgba(56, 189, 248, 0.3);
+          animation: floatBadgeTop 3.8s ease-in-out infinite alternate;
+        }
+
+        .hero-badge-3 {
+          bottom: 24px;
+          right: -24px;
+          border: 1px solid rgba(129, 140, 248, 0.6);
+          box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 25px rgba(129, 140, 248, 0.3);
           animation: floatBadgeRight 5s ease-in-out infinite alternate;
         }
 
-        .floating-badge-top {
-          animation: floatBadgeTop 3.8s ease-in-out infinite alternate;
+        .hero-badge-4 {
+          bottom: -18px;
+          left: -16px;
+          border: 1px solid rgba(45, 212, 191, 0.6);
+          border-radius: var(--radius-full);
+          box-shadow: 0 12px 30px rgba(0,0,0,0.5), 0 0 20px rgba(45, 212, 191, 0.3);
+          animation: floatBadgeLeft 4s ease-in-out infinite alternate;
         }
 
         @keyframes floatBadgeLeft {
           0% { transform: translateY(0px) translateX(0px); }
-          100% { transform: translateY(-10px) translateX(-6px); }
+          100% { transform: translateY(-8px) translateX(-4px); }
         }
 
         @keyframes floatBadgeRight {
           0% { transform: translateY(0px) translateX(0px); }
-          100% { transform: translateY(10px) translateX(6px); }
+          100% { transform: translateY(8px) translateX(4px); }
         }
 
         @keyframes floatBadgeTop {
-          0% { transform: translateY(0px) translateY(0px); }
-          100% { transform: translateY(-7px) translateX(4px); }
+          0% { transform: translateY(0px); }
+          100% { transform: translateY(-6px); }
         }
 
-        @media (max-width: 1200px) {
-          .floating-badge-left {
-            left: -20px !important;
-          }
-          .floating-badge-right {
-            right: -20px !important;
-          }
+        @media (max-width: 1024px) {
+          .hero-badge-1 { left: -12px; }
+          .hero-badge-2 { right: -8px; }
+          .hero-badge-3 { right: -12px; }
+          .hero-badge-4 { left: -8px; }
         }
 
         @media (max-width: 768px) {
-          .floating-badge-left {
-            left: -10px !important;
-            top: 12px !important;
-            padding: 8px 12px !important;
+          .hero-badges-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 16px;
+            width: 100%;
           }
-          .floating-badge-right {
-            right: -10px !important;
-            bottom: 12px !important;
-            padding: 8px 12px !important;
-          }
-          .floating-badge-top {
-            right: 0px !important;
-            top: -16px !important;
+
+          .hero-badge-floating {
+            position: relative !important;
+            top: auto !important;
+            bottom: auto !important;
+            left: auto !important;
+            right: auto !important;
+            transform: none !important;
+            animation: none !important;
+            border-radius: var(--radius-full) !important;
+            padding: 8px 14px !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
           }
         }
       `}</style>

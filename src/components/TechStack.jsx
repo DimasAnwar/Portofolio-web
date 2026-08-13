@@ -327,6 +327,15 @@ export default function TechStack() {
             grid-column: span 12;
           }
         }
+
+        @media (max-width: 600px) {
+          .bento-box {
+            padding: 20px 16px;
+          }
+          .bento-grid {
+            gap: 16px;
+          }
+        }
       `}</style>
     </section>
   );
