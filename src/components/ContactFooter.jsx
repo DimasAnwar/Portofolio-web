@@ -25,6 +25,7 @@ const DribbbleIcon = ({ size = 20 }) => (
 );
 
 export default function ContactFooter() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [copiedField, setCopiedField] = useState(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -38,14 +39,45 @@ export default function ContactFooter() {
     setTimeout(() => setCopiedField(null), 2500);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
-    setFormSubmitted(true);
-    setTimeout(() => {
-      setFormSubmitted(false);
-      setFormData({ name: '', email: '', message: '' });
-    }, 4000);
+
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/Dimasanwar210@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          _subject: `Pesan Baru Portofolio Web dari ${formData.name}`,
+          _template: 'table',
+        }),
+      });
+
+      if (response.ok) {
+        setFormSubmitted(true);
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        // Fallback to mailto
+        const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(`Pesan dari ${formData.name}`)}&body=${encodeURIComponent(`Nama: ${formData.name}\nEmail: ${formData.email}\n\nPesan:\n${formData.message}`)}`;
+        window.open(mailtoUrl, '_blank');
+        setFormSubmitted(true);
+      }
+    } catch (err) {
+      // Network fallback
+      const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(`Pesan dari ${formData.name}`)}&body=${encodeURIComponent(`Nama: ${formData.name}\nEmail: ${formData.email}\n\nPesan:\n${formData.message}`)}`;
+      window.open(mailtoUrl, '_blank');
+      setFormSubmitted(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -379,10 +411,41 @@ export default function ContactFooter() {
                   />
                 </div>
 
-                <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '8px' }}>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="btn btn-primary"
+                  style={{
+                    width: '100%',
+                    marginTop: '8px',
+                    opacity: isSubmitting ? 0.7 : 1,
+                    cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                  }}
+                >
                   <Send size={18} />
-                  <span>Kirim Pesan Sekarang</span>
+                  <span>{isSubmitting ? 'Mengirim Pesan...' : 'Kirim Pesan Sekarang'}</span>
                 </button>
+
+                {/* Quick WhatsApp Fallback */}
+                <div style={{ textAlign: 'center', marginTop: '12px' }}>
+                  <a
+                    href={`https://wa.me/6283873928028?text=${encodeURIComponent(`Halo Dimas, saya ${formData.name || 'pengunjung web'}. ${formData.message || ''}`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      fontSize: '0.8rem',
+                      color: '#2DD4BF',
+                      textDecoration: 'none',
+                      fontWeight: 600,
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                    }}
+                  >
+                    <span>Atau Kirim Pesan via WhatsApp</span>
+                    <ArrowUpRight size={14} />
+                  </a>
+                </div>
               </form>
             )}
           </div>
